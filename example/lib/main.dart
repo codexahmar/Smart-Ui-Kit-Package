@@ -15,7 +15,7 @@ class SmartDemoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: const SmartShowcasePage(),
+      home:  SmartShowcasePage(),
     );
   }
 }

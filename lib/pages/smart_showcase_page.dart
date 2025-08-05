@@ -18,6 +18,8 @@ class SmartShowcasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(title: const Text('Smart UI Widgets')),
       body: SingleChildScrollView(
@@ -34,11 +36,17 @@ class SmartShowcasePage extends StatelessWidget {
                 color: Colors.teal,
                 letterSpacing: 0.5,
               ),
-              subtitleStyle: TextStyle(fontSize: 14, color: Colors.black),
+              subtitleStyle: TextStyle(
+                fontSize: 14,
+                color: isDark ? Colors.white70 : Colors.black87,
+              ),
               action: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.1),
+                  color:
+                      isDark
+                          ? Colors.amber.withOpacity(0.2)
+                          : Colors.amber.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -49,7 +57,7 @@ class SmartShowcasePage extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               alignment: MainAxisAlignment.spaceBetween,
-              animationDuration: Duration(milliseconds: 600),
+              animationDuration: const Duration(milliseconds: 600),
               spacingBetween: 16,
               titleSubtitleSpacing: 6,
             ),

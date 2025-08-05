@@ -62,28 +62,26 @@ class SmartHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget titleWidget =
-        customTitle ??
-        Text(
-          title ?? '',
-          style:
-              titleStyle ??
-              theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-        );
+    // Default styles from theme, no hardcoding
+    final TextStyle resolvedTitleStyle =
+        titleStyle ?? theme.textTheme.titleLarge ?? const TextStyle();
 
-    Widget? subtitleWidget =
+    final TextStyle resolvedSubtitleStyle =
+        subtitleStyle ?? theme.textTheme.bodyMedium ?? const TextStyle();
+
+    final Widget titleWidget =
+        customTitle ?? Text(title ?? '', style: resolvedTitleStyle);
+
+    final Widget? subtitleWidget =
         customSubtitle ??
         (subtitle != null
             ? Padding(
               padding: EdgeInsets.only(top: titleSubtitleSpacing),
-              child: Text(
-                subtitle!,
-                style: subtitleStyle ?? theme.textTheme.bodyMedium,
-              ),
+              child: Text(subtitle!, style: resolvedSubtitleStyle),
             )
             : null);
 
-    Widget content = Padding(
+    final Widget content = Padding(
       padding: padding,
       child: Row(
         mainAxisAlignment: alignment,
