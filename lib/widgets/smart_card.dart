@@ -143,8 +143,7 @@ class _SmartCardState extends State<SmartCard> {
         );
 
       case SmartCardVariant.expanded:
-      default:
-        return Row(
+      return Row(
           children: [
             Icon(iconToShow, size: resolvedIconSize, color: iconColor),
             const SizedBox(width: 16),

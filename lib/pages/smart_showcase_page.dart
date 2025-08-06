@@ -1,6 +1,5 @@
 // lib/pages/smart_showcase_page.dart
 import 'package:flutter/material.dart';
-import 'package:smart_ui/sections/list_section.dart';
 import 'package:smart_ui/sections/smart_chip_section.dart';
 import 'package:smart_ui/sections/smart_dialog_section.dart';
 import 'package:smart_ui/sections/smart_empty_state_section.dart';
@@ -21,7 +20,7 @@ class SmartShowcasePage extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(title: const Text('Smart UI Widgets')),
+      appBar: AppBar(title: const Text('Smart UI Widgets Launching Soon')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -71,7 +70,6 @@ class SmartShowcasePage extends StatelessWidget {
             SizedBox(height: 24),
             CardsSection(),
             SizedBox(height: 24),
-            ListSection(),
             SmartToastSection(),
             SizedBox(height: 24),
             SmartChipSection(),

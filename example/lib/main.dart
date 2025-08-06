@@ -13,9 +13,9 @@ class SmartDemoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Smart UI Layouts Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       darkTheme: ThemeData.dark(),
-      home:  SmartShowcasePage(),
+      home: SmartShowcasePage(),
     );
   }
 }

@@ -32,49 +32,46 @@ class _SmartChipSectionState extends State<SmartChipSection> {
           spacing: 10,
           runSpacing: 10,
           children: [
-            // Flutter Chip
+            // Flutter Chip (FilterChip)
             SmartChip(
               label: "Flutter",
-              selected: _selectedTags.contains("Flutter"),
+              isSelected: _selectedTags.contains("Flutter"),
               onSelected: (_) => _toggle("Flutter"),
-
               backgroundColor: Colors.teal,
-              selectedColor: const Color(0xFF0288D1),
+              selectedColor: Colors.orange,
+              selectedTextColor: Colors.white,
               textColor: Colors.white,
-              border: BorderSide(color: Colors.teal.shade100),
+
               elevation: 2,
-              tooltip: "Flutter framework",
+              isFilterChip: true,
             ),
 
-            // React Chip
+            // React Chip (ChoiceChip)
             SmartChip(
               label: "React",
-              selected: _selectedTags.contains("React"),
+              isSelected: _selectedTags.contains("React"),
               onSelected: (_) => _toggle("React"),
-              deleteIcon: const Icon(Icons.close, size: 16),
-              onDeleted: () => debugPrint("React tag removed"),
               backgroundColor: const Color(0xFFE3F2FD),
               selectedColor: const Color(0xFF2196F3),
+              selectedTextColor: Colors.white,
               textColor: const Color(0xFF0D47A1),
-              border: const BorderSide(color: Color(0xFF90CAF9)),
-              tooltip: "React.js tag",
+
               elevation: 2,
+              isFilterChip: false, // Shows how it works as a ChoiceChip
             ),
 
-            // Design Chip
+            // Design Chip (with custom shape via borderRadius)
             SmartChip(
-              label: "Design",
-
-              selected: _selectedTags.contains("Design"),
+              label: "UI/UX",
+              isSelected: _selectedTags.contains("Design"),
               onSelected: (_) => _toggle("Design"),
               backgroundColor: Colors.amber,
               selectedColor: const Color(0xFFBA68C8),
+              selectedTextColor: Colors.white,
               textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
+              borderRadius: 8,
               elevation: 3,
-              tooltip: "UI/UX Design tag",
+              isFilterChip: true,
             ),
           ],
         ),

@@ -10,48 +10,49 @@ class SmartSnackbarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SmartSection(
       title: "Smart Snackbar",
-      description: "Interactive snackbars with different styles and purposes.",
+      description:
+          "Show interactive snackbars with contextual styles, actions, icons, and more.",
       children: [
-        // ✅ 1. Undo Snackbar with nested confirmation
+        // ✅ 1. Undo Action with confirmation
         SmartButtonAlt(
-          label: "Show Undo Snackbar",
-          backgroundColor: Colors.blueGrey.shade100,
-          textColor: Colors.blueGrey.shade800,
+          label: "Undo Profile Update",
+          backgroundColor: Colors.teal,
+          textColor: Colors.white,
           icon: const Icon(Icons.undo, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "Profile updated!",
+              message: "Profile updated successfully.",
               actionLabel: "Undo",
-              actionTextColor: Colors.white,
+              actionStyle: const TextStyle(fontSize: 16, color: Colors.white),
               onActionPressed: () {
                 SmartSnackbar.show(
                   context,
-                  message: "Undo clicked",
-                  backgroundColor: Colors.blueGrey,
+                  message: "Profile update reverted.",
+                  backgroundColor: Colors.blue.shade700,
                   icon: Icons.undo,
+                  textColor: Colors.white,
                 );
               },
+              backgroundColor: Colors.blue.shade600,
+              textColor: Colors.white,
+              icon: Icons.person,
             );
           },
         ),
 
         const SizedBox(height: 12),
 
-        // ✅ 2. Success Snackbar with icon and green background
+        // ✅ 2. Success action (like saving settings)
         SmartButtonAlt(
-          label: "Show Success Snackbar",
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          icon: const Icon(
-            Icons.check_circle_outline,
-            size: 18,
-            color: Colors.white,
-          ),
+          label: "Save Settings",
+          backgroundColor: Colors.green.shade100,
+          textColor: Colors.green.shade800,
+          icon: const Icon(Icons.save, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "Saved successfully!",
+              message: "Settings saved successfully!",
               backgroundColor: Colors.green,
               textColor: Colors.white,
               icon: Icons.check_circle_outline,
@@ -62,25 +63,26 @@ class SmartSnackbarSection extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        // ✅ 3. Error Snackbar with red background and dismiss callback
+        // ✅ 3. Error handling use case
         SmartButtonAlt(
-          label: "Show Error Snackbar",
-          backgroundColor: Colors.red.shade700,
-          textColor: Colors.white,
-          icon: const Icon(Icons.error_outline, size: 18, color: Colors.white),
+          label: "Trigger Error",
+          backgroundColor: Colors.red.shade100,
+          textColor: Colors.red.shade800,
+          icon: const Icon(Icons.error_outline, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "Something went wrong!",
+              message: "Failed to load data.",
               backgroundColor: Colors.red.shade700,
               textColor: Colors.white,
               icon: Icons.error_outline,
               onDismissed: () {
                 SmartSnackbar.show(
                   context,
-                  message: "Snackbar dismissed!",
-                  backgroundColor: Colors.black87,
+                  message: "Error dismissed. Try again later.",
+                  backgroundColor: Colors.grey.shade800,
                   icon: Icons.info_outline,
+                  textColor: Colors.white,
                 );
               },
             );
@@ -89,47 +91,53 @@ class SmartSnackbarSection extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        // ✅ 4. Info Snackbar with center alignment and multiline support
+        // ✅ 4. Informational tip/snackbar
         SmartButtonAlt(
-          label: "Show Info Snackbar",
+          label: "Show Tip",
           backgroundColor: Colors.indigo.shade50,
           textColor: Colors.indigo,
-          icon: const Icon(Icons.info, size: 18, color: Colors.indigo),
+          icon: const Icon(Icons.tips_and_updates, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "🧠 Tip: You can hold an item to select multiple.",
+              message: "💡 Tip: Use long press to select multiple items!",
               backgroundColor: Colors.indigo,
               textColor: Colors.white,
-              icon: Icons.info_outline,
+              icon: Icons.tips_and_updates,
               iconColor: Colors.white,
               contentAlignment: MainAxisAlignment.center,
               textAlign: TextAlign.center,
               textMaxLines: 3,
+              borderRadius: BorderRadius.circular(16),
             );
           },
         ),
 
         const SizedBox(height: 12),
 
-        // ✅ 5. Custom Styled Snackbar with icon widget and action style
+        // ✅ 5. Custom styled update prompt with actions
         SmartButtonAlt(
-          label: "Show Styled Snackbar",
-          backgroundColor: Colors.deepOrange.shade100,
-          textColor: Colors.deepOrange,
-          icon: const Icon(Icons.settings, size: 18, color: Colors.deepOrange),
+          label: "App Update Available",
+          backgroundColor: Colors.deepOrange.shade50,
+          textColor: Colors.deepOrange.shade800,
+          icon: const Icon(Icons.system_update, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "New update available!",
+              message: "Version 2.1.0 is now available!",
               icon: Icons.system_update_alt,
               backgroundColor: Colors.deepOrange,
               textColor: Colors.white,
               actionLabel: "Update",
-              onActionPressed: () => debugPrint("Update triggered!"),
-              actionTextColor: Colors.yellowAccent,
-              elevation: 10,
+              onActionPressed: () => debugPrint("Updating app..."),
+
+              elevation: 8,
               borderRadius: BorderRadius.circular(20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white24),
+                borderRadius: BorderRadius.circular(20),
+              ),
             );
           },
         ),

@@ -21,7 +21,9 @@ class SmartSnackbar {
     Color textColor = Colors.white,
     TextStyle? textStyle,
     double elevation = 6.0,
-    BorderRadius borderRadius = const BorderRadius.all(Radius.circular(12)),
+    BorderRadiusGeometry borderRadius = const BorderRadius.all(
+      Radius.circular(12),
+    ),
     EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
       horizontal: 16,
       vertical: 12,
@@ -32,9 +34,9 @@ class SmartSnackbar {
     ),
     SnackBarBehavior behavior = SnackBarBehavior.floating,
     MainAxisAlignment contentAlignment = MainAxisAlignment.start,
+    ShapeBorder? shape,
 
     // Action styling
-    Color? actionTextColor,
     TextStyle? actionStyle,
 
     // Control
@@ -43,27 +45,49 @@ class SmartSnackbar {
   }) {
     final theme = Theme.of(context);
 
+    final children = <Widget>[
+      if (leading != null) ...[
+        leading,
+        const SizedBox(width: 8),
+      ] else if (icon != null) ...[
+        Icon(icon, color: iconColor ?? textColor, size: 20),
+        const SizedBox(width: 8),
+      ],
+      Expanded(
+        child: Text(
+          message,
+          maxLines: textMaxLines,
+          textAlign: textAlign,
+          overflow: overflow,
+          style: textStyle ?? TextStyle(color: textColor, fontSize: 14),
+        ),
+      ),
+    ];
+
+    if (actionLabel != null) {
+      children.add(
+        GestureDetector(
+          onTap: onActionPressed ?? () {},
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: Text(
+              actionLabel,
+              style:
+                  actionStyle ??
+                  TextStyle(
+                    color: theme.colorScheme.secondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ),
+        ),
+      );
+    }
+
     final snackBarContent = Row(
       mainAxisAlignment: contentAlignment,
       mainAxisSize: MainAxisSize.min,
-      children: [
-        if (leading != null) ...[
-          leading,
-          const SizedBox(width: 8),
-        ] else if (icon != null) ...[
-          Icon(icon, color: iconColor ?? textColor, size: 20),
-          const SizedBox(width: 8),
-        ],
-        Expanded(
-          child: Text(
-            message,
-            maxLines: textMaxLines,
-            textAlign: textAlign,
-            overflow: overflow,
-            style: textStyle ?? TextStyle(color: textColor, fontSize: 14),
-          ),
-        ),
-      ],
+      children: children,
     );
 
     final snackBar = SnackBar(
@@ -74,19 +98,11 @@ class SmartSnackbar {
       margin: behavior == SnackBarBehavior.floating ? margin : null,
       padding: padding,
       behavior: behavior,
-      shape: RoundedRectangleBorder(borderRadius: borderRadius),
-      action:
-          actionLabel != null
-              ? SnackBarAction(
-                label: actionLabel,
-                textColor: actionTextColor ?? theme.colorScheme.secondary,
-                onPressed: onActionPressed ?? () {},
-              )
-              : null,
+      shape: shape ?? RoundedRectangleBorder(borderRadius: borderRadius),
     );
 
     final messenger = ScaffoldMessenger.of(context);
-    messenger.hideCurrentSnackBar(); // Prevent stacking
+    messenger.hideCurrentSnackBar();
     messenger.showSnackBar(snackBar).closed.then((_) {
       if (onDismissed != null) onDismissed();
     });

@@ -1,92 +1,160 @@
 import 'package:flutter/material.dart';
 
+enum ToastPosition { top, bottom, center, custom }
+
 class SmartToast {
   static void show(
     BuildContext context, {
     required String message,
-    Duration duration = const Duration(seconds: 2),
-    Color backgroundColor = Colors.black87,
-    Color textColor = Colors.white,
+
+    // Text
     TextStyle? textStyle,
-    EdgeInsets padding = const EdgeInsets.symmetric(
+    Color? textColor,
+
+    // Background & Styling
+    Color? backgroundColor,
+    BorderRadiusGeometry borderRadius = const BorderRadius.all(
+      Radius.circular(12),
+    ),
+    List<BoxShadow>? boxShadow,
+    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
       horizontal: 16,
       vertical: 12,
     ),
-    BorderRadius borderRadius = const BorderRadius.all(Radius.circular(12)),
+    double? width,
+    double? height,
+    ShapeBorder? shape,
+
+    // Icons
+    Widget? leading,
+    Widget? trailing,
     IconData? icon,
     Color? iconColor,
-    double? width,
+    double iconSize = 20,
+
+    // Timing
+    Duration duration = const Duration(seconds: 2),
+
+    // Positioning
+    ToastPosition position = ToastPosition.bottom,
+    double topOffset = 80,
     double bottomOffset = 80,
-    double? topOffset,
-    bool showAtTop = false,
-    bool center = false,
+    double customOffset = 200,
+    bool tapToDismiss = true,
+
+    // Callbacks
     VoidCallback? onDismiss,
-    List<BoxShadow>? boxShadow,
-    Curve animationCurve = Curves.easeOut,
-    Duration animationDuration = const Duration(milliseconds: 300),
+    VoidCallback? onTap,
   }) {
     final overlay = Overlay.of(context);
-    final entry = OverlayEntry(
+    final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
+
+    // Use theme defaults if not provided
+    final Color finalBackgroundColor =
+        backgroundColor ?? theme.colorScheme.surfaceVariant;
+    final Color finalTextColor =
+        textColor ?? theme.colorScheme.onSurfaceVariant;
+
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
       builder: (context) {
-        return Positioned(
-          left: 24,
-          right: 24,
-          top:
-              showAtTop
-                  ? topOffset ?? 80
-                  : (center ? MediaQuery.of(context).size.height / 2 : null),
-          bottom: showAtTop || center ? null : bottomOffset,
-          child: AnimatedSlide(
-            duration: animationDuration,
-            curve: animationCurve,
-            offset: const Offset(0, 0),
-            child: AnimatedOpacity(
-              duration: animationDuration,
-              opacity: 1.0,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  width: width,
-                  padding: padding,
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: borderRadius,
-                    boxShadow: boxShadow,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (icon != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: Icon(
-                            icon,
-                            color: iconColor ?? textColor,
-                            size: 20,
-                          ),
-                        ),
-                      Expanded(
-                        child: Text(
-                          message,
-                          style:
-                              textStyle ??
-                              TextStyle(color: textColor, fontSize: 14),
-                        ),
+        // Toast content
+        Widget toastContent = GestureDetector(
+          onTap: () {
+            if (tapToDismiss) entry.remove();
+            onTap?.call();
+          },
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: width,
+              height: height,
+              padding: padding,
+              decoration:
+                  shape != null
+                      ? ShapeDecoration(
+                        color: finalBackgroundColor,
+                        shape: shape,
+                        shadows: boxShadow,
+                      )
+                      : BoxDecoration(
+                        color: finalBackgroundColor,
+                        borderRadius: borderRadius,
+                        boxShadow: boxShadow,
                       ),
-                    ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (leading != null)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: leading,
+                    )
+                  else if (icon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Icon(
+                        icon,
+                        color: iconColor ?? finalTextColor,
+                        size: iconSize,
+                      ),
+                    ),
+                  Expanded(
+                    child: Text(
+                      message,
+                      style:
+                          textStyle ??
+                          theme.textTheme.bodyMedium?.copyWith(
+                            color: finalTextColor,
+                          ),
+                    ),
                   ),
-                ),
+                  if (trailing != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: trailing,
+                    ),
+                ],
               ),
             ),
           ),
         );
+
+        // Positioning logic
+        double? top, bottom;
+        switch (position) {
+          case ToastPosition.top:
+            top = topOffset;
+            break;
+          case ToastPosition.center:
+            top = screenSize.height / 2;
+            break;
+          case ToastPosition.custom:
+            top = customOffset;
+            break;
+          case ToastPosition.bottom:
+          bottom = bottomOffset;
+        }
+
+        return Positioned(
+          left: 24,
+          right: 24,
+          top: top,
+          bottom: bottom,
+          child: toastContent,
+        );
       },
     );
 
+    // Show and remove
     overlay.insert(entry);
     Future.delayed(duration, () {
-      entry.remove();
-      onDismiss?.call();
+      if (entry.mounted) {
+        entry.remove();
+        onDismiss?.call();
+      }
     });
   }
 }
