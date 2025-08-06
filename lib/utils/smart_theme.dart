@@ -20,7 +20,6 @@ class SmartTheme {
             ? const Color(0xFFD32F2F) // Dark red
             : const Color(0xFFFFEBEE); // Light red background
       case SmartLevel.info:
-      default:
         return isDark
             ? const Color(0xFF455A64) // BlueGrey dark
             : const Color(0xFFE3F2FD); // Light blue background
@@ -41,7 +40,6 @@ class SmartTheme {
       case SmartLevel.error:
         return const Color(0xFFD32F2F); // Red
       case SmartLevel.info:
-      default:
         return const Color(0xFF1976D2); // Blue
     }
   }
@@ -55,7 +53,6 @@ class SmartTheme {
       case SmartLevel.error:
         return Icons.error;
       case SmartLevel.info:
-      default:
         return Icons.info;
     }
   }
@@ -69,7 +66,6 @@ class SmartTheme {
       case SmartLevel.error:
         return "Something went wrong. Please try again.";
       case SmartLevel.info:
-      default:
         return "Here is some helpful information.";
     }
   }
