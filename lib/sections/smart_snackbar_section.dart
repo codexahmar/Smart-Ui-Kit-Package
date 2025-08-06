@@ -46,8 +46,8 @@ class SmartSnackbarSection extends StatelessWidget {
         // ✅ 2. Success action (like saving settings)
         SmartButtonAlt(
           label: "Save Settings",
-          backgroundColor: Colors.green.shade100,
-          textColor: Colors.green.shade800,
+          backgroundColor: Colors.brown,
+          textColor: Colors.white,
           icon: const Icon(Icons.save, size: 18),
           onPressed: () {
             SmartSnackbar.show(
@@ -66,8 +66,8 @@ class SmartSnackbarSection extends StatelessWidget {
         // ✅ 3. Error handling use case
         SmartButtonAlt(
           label: "Trigger Error",
-          backgroundColor: Colors.red.shade100,
-          textColor: Colors.red.shade800,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
           icon: const Icon(Icons.error_outline, size: 18),
           onPressed: () {
             SmartSnackbar.show(
@@ -94,13 +94,13 @@ class SmartSnackbarSection extends StatelessWidget {
         // ✅ 4. Informational tip/snackbar
         SmartButtonAlt(
           label: "Show Tip",
-          backgroundColor: Colors.indigo.shade50,
-          textColor: Colors.indigo,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
           icon: const Icon(Icons.tips_and_updates, size: 18),
           onPressed: () {
             SmartSnackbar.show(
               context,
-              message: "💡 Tip: Use long press to select multiple items!",
+              message: "Tip: Use long press to select multiple items!",
               backgroundColor: Colors.indigo,
               textColor: Colors.white,
               icon: Icons.tips_and_updates,
@@ -118,8 +118,8 @@ class SmartSnackbarSection extends StatelessWidget {
         // ✅ 5. Custom styled update prompt with actions
         SmartButtonAlt(
           label: "App Update Available",
-          backgroundColor: Colors.deepOrange.shade50,
-          textColor: Colors.deepOrange.shade800,
+          backgroundColor: Colors.deepOrange,
+          textColor: Colors.white,
           icon: const Icon(Icons.system_update, size: 18),
           onPressed: () {
             SmartSnackbar.show(
