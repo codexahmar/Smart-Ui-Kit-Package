@@ -44,8 +44,8 @@ class SmartShowcasePage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color:
                       isDark
-                          ? Colors.amber.withOpacity(0.2)
-                          : Colors.amber.withOpacity(0.1),
+                          ? const Color.fromRGBO(255, 193, 7, 0.2)
+                          : const Color.fromRGBO(255, 193, 7, 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(

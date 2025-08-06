@@ -52,9 +52,8 @@ class SmartToast {
 
     // Use theme defaults if not provided
     final Color finalBackgroundColor =
-        backgroundColor ?? theme.colorScheme.surfaceVariant;
-    final Color finalTextColor =
-        textColor ?? theme.colorScheme.onSurfaceVariant;
+        backgroundColor ?? theme.colorScheme.surfaceContainerHighest;
+    final Color finalTextColor = textColor ?? theme.colorScheme.onSurface;
 
     late OverlayEntry entry;
 
@@ -135,7 +134,7 @@ class SmartToast {
             top = customOffset;
             break;
           case ToastPosition.bottom:
-          bottom = bottomOffset;
+            bottom = bottomOffset;
         }
 
         return Positioned(
