@@ -1,23 +1,18 @@
 # Smart UI Layouts
 
-A Flutter package for AI-assisted auto-layout widgets. Build beautiful, animated, and responsive cards and sections with minimal code—perfect for dashboards, notifications, and more.
+**A Flutter package for beautiful, customizable, and maintainable UI widgets.**
 
-## Features
+Build dashboards, notifications, forms, and more with ready-to-use, animated, and theme-aware widgets.
 
-- 🧠 **SmartCard**: Auto-generates a beautiful layout from a few parameters (title, subtitle, icon, button, etc.)
-- 📦 **SmartSection**: Group cards with a header and description
-- 🎨 Theming: Easily customize colors, radii, and shadows
-- ⚡ Animated appearance and smooth transitions
-- 🔗 Tap/long-press/callback support
-- 🧩 Extensible for future smart layouts
+---
 
-## Getting Started
+## 📦 Installation
 
 Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  smart_ui_layouts: ^0.1.0
+  smart_ui_layouts: ^1.0.0
 ```
 
 Import in your Dart code:
@@ -26,7 +21,34 @@ Import in your Dart code:
 import 'package:smart_ui_layouts/smart_ui_layouts.dart';
 ```
 
-## Usage
+---
+
+## 🚀 Widgets Overview
+
+| Widget                | Description                                  |
+| --------------------- | -------------------------------------------- |
+| SmartCard             | Info, warning, error, and media cards        |
+| SmartSection          | Group cards with header and description      |
+| SmartList             | Animated, customizable vertical lists        |
+| SmartGrid             | Animated, customizable grid layouts          |
+| SmartTile             | Customizable info tiles with icons/trailing  |
+| SmartHeader           | Animated section/page headers                |
+| SmartButtonAlt        | Customizable buttons (filled/outlined)       |
+| SmartInput            | Form and search input fields                 |
+| SmartAvatar           | Profile avatars with status indicator        |
+| SmartBadge            | Dot or label badges for status/notifications |
+| SmartChip             | Filter/choice chips for tags and categories  |
+| SmartDialog           | Modern, customizable dialogs                 |
+| SmartModalBottomSheet | Custom modal bottom sheets                   |
+| SmartSnackbar         | Interactive snackbars with actions/icons     |
+| SmartToast            | Customizable toast notifications             |
+| SmartEmptyState       | Minimal UI for empty screens/data            |
+
+---
+
+## 🛠️ Usage Examples
+
+### SmartCard
 
 ```dart
 SmartCard(
@@ -41,7 +63,7 @@ SmartCard(
 )
 ```
 
-Group cards in a section:
+### SmartSection
 
 ```dart
 SmartSection(
@@ -54,21 +76,164 @@ SmartSection(
 )
 ```
 
-## Example
+### SmartList
 
-See the `example/` app for a full demo.
+```dart
+SmartList(
+  children: [SmartCard(...), SmartCard(...)],
+)
+```
 
-## Roadmap
+### SmartGrid
 
-- [x] SmartCard
-- [x] SmartSection
-- [ ] More smart layouts (SmartList, SmartGrid)
-- [ ] AI-powered layout suggestions
+```dart
+SmartGrid(
+  children: [SmartCard(...), SmartCard(...)],
+  crossAxisCount: 2,
+)
+```
 
-## Contributing
+### SmartTile
 
-PRs and suggestions welcome! Let’s make Flutter UI smarter together.
+```dart
+SmartTile(
+  icon: Icons.wifi,
+  title: "Wi-Fi",
+  subtitle: "Connected",
+  trailing: Icon(Icons.chevron_right),
+  onTap: () {},
+)
+```
 
-## License
+### SmartButtonAlt
 
-MIT
+```dart
+SmartButtonAlt(
+  label: "Get Started",
+  icon: Icon(Icons.arrow_forward),
+  onPressed: () {},
+)
+```
+
+### SmartInput
+
+```dart
+SmartInput(
+  label: "Search",
+  hint: "Type to search...",
+)
+```
+
+### SmartAvatar & SmartBadge
+
+```dart
+SmartAvatar(
+  imageUrl: "https://i.pravatar.cc/300",
+  showStatus: true,
+  statusColor: Colors.green,
+)
+SmartBadge(label: "Active", color: Colors.green)
+```
+
+### SmartChip
+
+```dart
+SmartChip(
+  label: "Flutter",
+  isSelected: true,
+  onSelected: (selected) {},
+)
+```
+
+### SmartDialog
+
+```dart
+SmartDialog.show(
+  context: context,
+  title: "Logout?",
+  content: Text("Do you really want to logout?"),
+  onConfirm: () {},
+)
+```
+
+### SmartModalBottomSheet
+
+```dart
+SmartModalBottomSheet.show(
+  context: context,
+  title: "Quick Settings",
+  child: Column(...),
+)
+```
+
+### SmartSnackbar
+
+```dart
+SmartSnackbar.show(
+  context,
+  message: "Profile updated successfully.",
+  actionLabel: "Undo",
+  onActionPressed: () {},
+)
+```
+
+### SmartToast
+
+```dart
+SmartToast.show(
+  context,
+  message: "This is an info toast.",
+)
+```
+
+### SmartEmptyState
+
+```dart
+SmartEmptyState(
+  icon: Icons.inbox,
+  title: "No Messages",
+  message: "You don’t have any messages yet.",
+)
+```
+
+---
+
+## 📚 Example App
+
+See the [`example/`](example/) folder for a full demo and showcase of all widgets.
+
+---
+
+## 🧑‍💻 Contributing & Maintenance
+
+- All widgets are modular and documented for easy updates.
+- To add new widgets, create a new file in `lib/widgets/` and export it in `smart_ui_layouts.dart`.
+- For bug fixes or improvements, submit a PR or open an issue.
+- Please keep doc comments up-to-date for maintainability.
+
+---
+
+## 📄 License
+
+MIT License
+
+Copyright (c) 2025 Ahmar yar Khan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
