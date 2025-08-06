@@ -4,7 +4,7 @@ import 'package:smart_ui/widgets/smart_badge.dart';
 import 'package:smart_ui/widgets/smart_section.dart';
 
 class AvatarsBadgesSection extends StatelessWidget {
-  AvatarsBadgesSection({super.key});
+  const AvatarsBadgesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

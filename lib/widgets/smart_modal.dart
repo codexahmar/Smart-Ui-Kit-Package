@@ -106,7 +106,7 @@ class SmartModalBottomSheet {
 
               // Main content
               if (contentPadding != null)
-                Padding(padding: contentPadding!, child: child)
+                Padding(padding: contentPadding, child: child)
               else
                 child,
 
