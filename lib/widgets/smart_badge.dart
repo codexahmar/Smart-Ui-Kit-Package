@@ -56,7 +56,7 @@ class SmartBadge extends StatelessWidget {
     final theme = Theme.of(context);
 
     final Color defaultBg =
-        color ?? theme.colorScheme.secondary.withOpacity(0.9);
+        color ?? theme.colorScheme.secondary.withValues(alpha: 0.9);
     final Color defaultFg = textColor ?? theme.colorScheme.onSecondary;
 
     final bool isDot = label == null || label!.trim().isEmpty;
@@ -82,18 +82,18 @@ class SmartBadge extends StatelessWidget {
         );
 
     return Container(
-      constraints:
-          minWidth != null
-              ? BoxConstraints(minWidth: minWidth!)
-              : const BoxConstraints(),
+      constraints: minWidth != null
+          ? BoxConstraints(minWidth: minWidth!)
+          : const BoxConstraints(),
       padding:
           padding ?? const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: defaultBg,
         shape: shape,
         border: border,
-        borderRadius:
-            shape == BoxShape.rectangle ? BorderRadius.circular(radius) : null,
+        borderRadius: shape == BoxShape.rectangle
+            ? BorderRadius.circular(radius)
+            : null,
       ),
       child: Text(label!, style: style, textAlign: TextAlign.center),
     );

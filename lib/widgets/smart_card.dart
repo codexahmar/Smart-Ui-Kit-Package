@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:smart_ui/utils/smart_theme.dart';
-import 'package:smart_ui/widgets/smart_button.dart';
+import 'package:smart_ui_kit/widgets/smart_button.dart';
 
+enum SmartCardVariant { compact, expanded, media, simple, iconOnly }
 
-enum SmartCardVariant { compact, expanded, media }
-
-enum SmartCardLayout { card, tile, compact }
+enum SmartCardLayout { card, tile, compact, bordered, minimal }
 
 class SmartCard extends StatefulWidget {
   final String title;
   final String? subtitle;
   final IconData? icon;
-  final SmartLevel level;
 
   final String? actionText;
   final VoidCallback? onActionPressed;
@@ -47,7 +44,6 @@ class SmartCard extends StatefulWidget {
     required this.title,
     this.subtitle,
     this.icon,
-    this.level = SmartLevel.info,
     this.actionText,
     this.onActionPressed,
     this.actionBuilder,
@@ -82,7 +78,7 @@ class _SmartCardState extends State<SmartCard> {
 
     final TextStyle resolvedSubtitleStyle =
         widget.subtitleStyle ??
-        TextStyle(fontSize: 14, color: textColor.withOpacity(0.75));
+        TextStyle(fontSize: 14, color: textColor.withValues(alpha: 0.7));
 
     Widget buildActionButton() {
       if (widget.actionBuilder != null) return widget.actionBuilder!(context);
@@ -102,8 +98,7 @@ class _SmartCardState extends State<SmartCard> {
       return const SizedBox.shrink();
     }
 
-    final IconData iconToShow =
-        widget.icon ?? SmartTheme.defaultIcon(widget.level);
+    final IconData iconToShow = widget.icon ?? Icons.info_outline;
     final double resolvedIconSize = widget.iconSize ?? 40;
 
     switch (widget.variant) {
@@ -143,7 +138,7 @@ class _SmartCardState extends State<SmartCard> {
         );
 
       case SmartCardVariant.expanded:
-      return Row(
+        return Row(
           children: [
             Icon(iconToShow, size: resolvedIconSize, color: iconColor),
             const SizedBox(width: 16),
@@ -171,21 +166,71 @@ class _SmartCardState extends State<SmartCard> {
             ),
           ],
         );
+
+      case SmartCardVariant.simple:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.title, style: resolvedTitleStyle),
+            if (widget.subtitle != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(widget.subtitle!, style: resolvedSubtitleStyle),
+              ),
+          ],
+        );
+
+      case SmartCardVariant.iconOnly:
+        return Center(
+          child: Icon(iconToShow, size: resolvedIconSize, color: iconColor),
+        );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final brightness = theme.brightness;
 
-    final Color bgColor =
-        widget.backgroundColor ??
-        SmartTheme.backgroundColor(widget.level, brightness);
-    final Color icColor =
-        widget.iconColor ?? SmartTheme.iconColor(widget.level);
-    final Color txColor =
-        widget.textColor ?? SmartTheme.textColor(widget.level, brightness);
+    final Color bgColor = widget.backgroundColor ?? theme.cardColor;
+    final Color icColor = widget.iconColor ?? theme.colorScheme.primary;
+    final Color txColor = widget.textColor ?? theme.textTheme.bodyLarge!.color!;
+
+    List<BoxShadow>? resolvedBoxShadow;
+    BoxBorder? resolvedBorder;
+
+    switch (widget.layout) {
+      case SmartCardLayout.card:
+        resolvedBoxShadow =
+            widget.boxShadow ??
+            [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.06),
+                blurRadius: widget.elevation ?? 10,
+                offset: const Offset(0, 4),
+              ),
+            ];
+        break;
+
+      case SmartCardLayout.tile:
+        resolvedBoxShadow = null;
+        break;
+
+      case SmartCardLayout.compact:
+        resolvedBoxShadow = null;
+        break;
+
+      case SmartCardLayout.bordered:
+        resolvedBorder = Border.all(
+          color: widget.iconColor ?? theme.dividerColor,
+          width: 1.2,
+        );
+        break;
+
+      case SmartCardLayout.minimal:
+        resolvedBoxShadow = null;
+        resolvedBorder = null;
+        break;
+    }
 
     return GestureDetector(
       onTap: widget.onTap,
@@ -196,16 +241,8 @@ class _SmartCardState extends State<SmartCard> {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(widget.borderRadius ?? 16),
-          border: widget.border,
-          boxShadow:
-              widget.boxShadow ??
-              [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
-                  blurRadius: widget.elevation ?? 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+          border: widget.border ?? resolvedBorder,
+          boxShadow: resolvedBoxShadow,
         ),
         child: widget.child ?? _buildContent(txColor, icColor),
       ),

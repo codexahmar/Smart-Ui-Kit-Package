@@ -1,5 +1,6 @@
 // lib/widgets/animated_entry.dart
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 /// A highly customizable animation entry widget.
 class SmartAnimation extends StatefulWidget {
@@ -46,6 +47,7 @@ class _SmartAnimationState extends State<SmartAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  Timer? _delayTimer;
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _SmartAnimationState extends State<SmartAnimation>
     if (widget.delay == Duration.zero) {
       _controller.forward();
     } else {
-      Future.delayed(widget.delay, () {
+      _delayTimer = Timer(widget.delay, () {
         if (mounted) _controller.forward();
       });
     }
@@ -64,6 +66,7 @@ class _SmartAnimationState extends State<SmartAnimation>
 
   @override
   void dispose() {
+    _delayTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

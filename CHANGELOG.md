@@ -1,6 +1,20 @@
-# Changelog
+## 0.0.1
 
-## 1.0.0+1
-
-- Initial release of Smart UI package.
-- Includes SmartCard, SmartSection, SmartList, SmartGrid, SmartTile, SmartHeader, SmartButtonAlt, SmartInput, SmartAvatar, SmartBadge, SmartChip, SmartDialog, SmartModalBottomSheet, SmartSnackbar, SmartToast, SmartEmptyState, SmartAnimation, SmartAppbar.
+- **Initial release** of the Smart UI package.
+- Added the following widgets:
+  - SmartCard
+  - SmartSection
+  - SmartList
+  - SmartTile
+  - SmartHeader
+  - SmartButtonAlt
+  - SmartInput
+  - SmartAvatar
+  - SmartBadge
+  - SmartChip
+  - SmartDialog
+  - SmartModalBottomSheet
+  - SmartSnackbar
+  - SmartToast
+  - SmartEmptyState
+  - SmartAnimation

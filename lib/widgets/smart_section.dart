@@ -27,32 +27,34 @@ class SmartSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      color: backgroundColor ?? theme.cardColor.withOpacity(0.04),
+      color: backgroundColor ?? theme.cardColor.withValues(alpha: 0.04),
       padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style:
-                titleStyle ??
-                theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          if (description != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 8),
-              child: Text(
-                description!,
-                style: descriptionStyle ?? theme.textTheme.bodyMedium,
-              ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style:
+                  titleStyle ??
+                  theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
-          ...children
-              .expand((w) => [w, SizedBox(height: cardSpacing.vertical / 2)])
-              .toList()
-            ..removeLast(),
-        ],
+            if (description != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 4, bottom: 8),
+                child: Text(
+                  description!,
+                  style: descriptionStyle ?? theme.textTheme.bodyMedium,
+                ),
+              ),
+            ...children
+                .expand((w) => [w, SizedBox(height: cardSpacing.vertical / 2)])
+                .toList()
+              ..removeLast(),
+          ],
+        ),
       ),
     );
   }

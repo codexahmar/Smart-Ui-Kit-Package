@@ -121,7 +121,7 @@ class SmartTile extends StatelessWidget {
                             subtitleStyle ??
                             TextStyle(
                               fontSize: 13,
-                              color: defaultTextColor.withOpacity(0.7),
+                              color: defaultTextColor.withValues(alpha: 0.7),
                             ),
                       ),
                   ],

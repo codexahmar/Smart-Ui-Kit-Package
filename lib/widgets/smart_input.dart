@@ -123,24 +123,24 @@ class _SmartInputState extends State<SmartInput> {
           hintStyle: widget.hintStyle,
           errorStyle: widget.errorStyle,
           prefixIcon: widget.prefixIcon,
-          suffixIcon:
-              widget.obscureText
-                  ? IconButton(
-                    icon: Icon(
-                      _obscure ? Icons.visibility_off : Icons.visibility,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscure = !_obscure;
-                      });
-                    },
-                  )
-                  : widget.suffixIcon,
+          suffixIcon: widget.obscureText
+              ? IconButton(
+                  icon: Icon(
+                    _obscure ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscure = !_obscure;
+                    });
+                  },
+                )
+              : widget.suffixIcon,
           prefix: widget.prefix,
           suffix: widget.suffix,
           counter: widget.counter,
           filled: widget.filled,
-          fillColor: widget.fillColor ?? theme.cardColor.withOpacity(0.05),
+          fillColor:
+              widget.fillColor ?? theme.cardColor.withValues(alpha: 0.05),
           border:
               widget.border ??
               OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

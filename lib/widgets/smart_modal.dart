@@ -50,13 +50,12 @@ class SmartModalBottomSheet {
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
       constraints: constraints,
-      transitionAnimationController:
-          animationDuration != null
-              ? AnimationController(
-                vsync: Navigator.of(context),
-                duration: animationDuration,
-              )
-              : null,
+      transitionAnimationController: animationDuration != null
+          ? AnimationController(
+              vsync: Navigator.of(context),
+              duration: animationDuration,
+            )
+          : null,
       builder: (_) {
         final mediaQuery = MediaQuery.of(context);
         final bottomPadding = mediaQuery.viewInsets.bottom;
@@ -129,13 +128,9 @@ class SmartModalBottomSheet {
           ),
         );
 
-        final contentWrapper =
-            scrollPhysics != null
-                ? SingleChildScrollView(
-                  physics: scrollPhysics,
-                  child: modalContent,
-                )
-                : SingleChildScrollView(child: modalContent);
+        final contentWrapper = scrollPhysics != null
+            ? SingleChildScrollView(physics: scrollPhysics, child: modalContent)
+            : SingleChildScrollView(child: modalContent);
 
         return useSafeArea ? SafeArea(child: contentWrapper) : contentWrapper;
       },
