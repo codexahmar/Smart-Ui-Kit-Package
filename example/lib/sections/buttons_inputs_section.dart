@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_ui_kit/smart_ui_kit.dart';
+
 class ButtonsInputsSection extends StatelessWidget {
   const ButtonsInputsSection({super.key});
 
@@ -14,9 +15,11 @@ class ButtonsInputsSection extends StatelessWidget {
           icon: const Icon(Icons.arrow_forward, size: 20, color: Colors.white),
           onPressed: () {},
           textColor: Colors.white,
+          iconAfterLabel: true,
           backgroundColor: Colors.amber,
           fontSize: 16,
           borderRadius: 20,
+          elevation: 0,
         ),
         const SizedBox(height: 16),
         SmartButtonAlt(
@@ -77,6 +80,7 @@ class ButtonsInputsSection extends StatelessWidget {
           backgroundColor: Colors.teal,
           fontSize: 16,
           borderRadius: 40,
+
           icon: const Icon(Icons.edit, size: 18, color: Colors.white),
         ),
         const SizedBox(height: 24),

@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 // Import all section widgets from example
 import 'package:example/sections/avatars_badges_section.dart';
 import 'package:example/sections/buttons_inputs_section.dart';
-import 'package:example/sections/cards_section.dart';
+import 'package:example/sections/smart_card.dart';
 import 'package:example/sections/smart_chip_section.dart';
 import 'package:example/sections/smart_dialog_section.dart';
 import 'package:example/sections/smart_empty_state_section.dart';

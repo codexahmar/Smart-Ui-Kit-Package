@@ -13,7 +13,6 @@ class CardsSection extends StatelessWidget {
         // Default Expanded Info Card
         SmartCard(
           title: "Welcome to SmartUI!",
-
           subtitle: "This is an informational card using default styling.",
         ),
 
@@ -22,7 +21,6 @@ class CardsSection extends StatelessWidget {
           title: "Update Available",
           icon: Icons.system_update,
           iconColor: Colors.blue,
-
           variant: SmartCardVariant.expanded,
         ),
 
