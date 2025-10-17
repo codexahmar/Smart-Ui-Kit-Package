@@ -1,239 +1,130 @@
-# Smart UI Layouts
+# Smart UI Kit
 
-**A Flutter package for beautiful, customizable, and maintainable UI widgets.**
+A Flutter package for beautiful, customizable, and maintainable UI widgets. Smart UI Kit provides a collection of production-ready widgets to help you build modern, consistent, and visually appealing Flutter apps with ease.
 
-Build dashboards, notifications, forms, and more with ready-to-use, animated, and theme-aware widgets.
+## Features
 
----
+- Professionally designed, reusable UI widgets
+- Highly customizable and easy to integrate
+- Consistent design language across widgets
+- Well-documented use cases for each widget
+- Example app included for hands-on exploration
 
-## 📦 Installation
+## Widgets Included
 
-Add to your `pubspec.yaml`:
+- SmartCard
+- SmartSection
+- SmartList
+- SmartTile
+- SmartHeader
+- SmartButtonAlt
+- SmartInput
+- SmartAvatar
+- SmartBadge
+- SmartChip
+- SmartDialog
+- SmartModalBottomSheet
+- SmartSnackbar
+- SmartToast
+- SmartEmptyState
+- SmartAnimation
+
+## Getting Started
+
+Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  smart_ui_layouts: ^1.0.0
+  smart_ui_kit: ^0.0.1
 ```
 
-Import in your Dart code:
+Then run:
 
-```dart
-import 'package:smart_ui_layouts/smart_ui_layouts.dart';
+```sh
+flutter pub get
 ```
 
----
-
-## 🚀 Widgets Overview
-
-| Widget                | Description                                  |
-| --------------------- | -------------------------------------------- |
-| SmartCard             | Info, warning, error, and media cards        |
-| SmartSection          | Group cards with header and description      |
-| SmartList             | Animated, customizable vertical lists        |
-| SmartGrid             | Animated, customizable grid layouts          |
-| SmartTile             | Customizable info tiles with icons/trailing  |
-| SmartHeader           | Animated section/page headers                |
-| SmartButtonAlt        | Customizable buttons (filled/outlined)       |
-| SmartInput            | Form and search input fields                 |
-| SmartAvatar           | Profile avatars with status indicator        |
-| SmartBadge            | Dot or label badges for status/notifications |
-| SmartChip             | Filter/choice chips for tags and categories  |
-| SmartDialog           | Modern, customizable dialogs                 |
-| SmartModalBottomSheet | Custom modal bottom sheets                   |
-| SmartSnackbar         | Interactive snackbars with actions/icons     |
-| SmartToast            | Customizable toast notifications             |
-| SmartEmptyState       | Minimal UI for empty screens/data            |
-
----
-
-## 🛠️ Usage Examples
-
-### SmartCard
+Import the package in your Dart code:
 
 ```dart
+import 'package:smart_ui_kit/smart_ui_kit.dart';
+```
+
+## Usage
+
+Each widget comes with a dedicated use case in the `lib/sections/` folder. For a comprehensive set of examples, see the [example app](example/).
+
+### Example: SmartCard
+
+```dart
+import 'package:smart_ui_kit/widgets/smart_card.dart';
+
 SmartCard(
-  title: "Battery Low",
-  subtitle: "Please plug in your charger.",
-  icon: Icons.battery_alert,
-  level: SmartLevel.warning,
-  layout: SmartCardLayout.tile,
-  onTap: () => print("Card tapped!"),
-  actionText: "Dismiss",
-  onActionPressed: () {},
+  title: 'Welcome',
+  content: Text('This is a SmartCard widget.'),
+  elevation: 4.0,
 )
 ```
 
-### SmartSection
+### Example: SmartButtonAlt
 
 ```dart
-SmartSection(
-  title: "System Alerts",
-  description: "Auto-layout cards for quick system notifications.",
-  children: [
-    SmartCard(...),
-    SmartCard(...),
-  ],
-)
-```
+import 'package:smart_ui_kit/widgets/smart_button.dart';
 
-### SmartList
-
-```dart
-SmartList(
-  children: [SmartCard(...), SmartCard(...)],
-)
-```
-
-### SmartGrid
-
-```dart
-SmartGrid(
-  children: [SmartCard(...), SmartCard(...)],
-  crossAxisCount: 2,
-)
-```
-
-### SmartTile
-
-```dart
-SmartTile(
-  icon: Icons.wifi,
-  title: "Wi-Fi",
-  subtitle: "Connected",
-  trailing: Icon(Icons.chevron_right),
-  onTap: () {},
-)
-```
-
-### SmartButtonAlt
-
-```dart
 SmartButtonAlt(
-  label: "Get Started",
-  icon: Icon(Icons.arrow_forward),
-  onPressed: () {},
+  label: 'Click Me',
+  onPressed: () {
+    // Handle button press
+  },
 )
 ```
 
-### SmartInput
+### Example: SmartAvatar
 
 ```dart
-SmartInput(
-  label: "Search",
-  hint: "Type to search...",
-)
-```
+import 'package:smart_ui_kit/widgets/smart_avatar.dart';
 
-### SmartAvatar & SmartBadge
-
-```dart
 SmartAvatar(
-  imageUrl: "https://i.pravatar.cc/300",
-  showStatus: true,
-  statusColor: Colors.green,
-)
-SmartBadge(label: "Active", color: Colors.green)
-```
-
-### SmartChip
-
-```dart
-SmartChip(
-  label: "Flutter",
-  isSelected: true,
-  onSelected: (selected) {},
+  imageUrl: 'assets/images/avatar_placeholder.png',
+  radius: 32.0,
 )
 ```
 
-### SmartDialog
+### Example: SmartDialog
 
 ```dart
-SmartDialog.show(
+import 'package:smart_ui_kit/widgets/smart_dialog.dart';
+
+showDialog(
   context: context,
-  title: "Logout?",
-  content: Text("Do you really want to logout?"),
-  onConfirm: () {},
-)
+  builder: (context) => SmartDialog(
+    title: 'Dialog Title',
+    content: Text('This is a custom dialog.'),
+  ),
+);
 ```
 
-### SmartModalBottomSheet
+> **Tip:** For more usage examples, check the `lib/sections/` folder and the [example app](example/).
 
-```dart
-SmartModalBottomSheet.show(
-  context: context,
-  title: "Quick Settings",
-  child: Column(...),
-)
+## Example App
+
+A full-featured example app is provided in the [`example/`](example/) directory. To run the example:
+
+```sh
+cd example
+flutter run
 ```
 
-### SmartSnackbar
+Explore the app to see all widgets in action and review their use cases.
 
-```dart
-SmartSnackbar.show(
-  context,
-  message: "Profile updated successfully.",
-  actionLabel: "Undo",
-  onActionPressed: () {},
-)
-```
+## Contributing
 
-### SmartToast
+Contributions are welcome! Please open issues or submit pull requests for bug fixes, new features, or improvements.
 
-```dart
-SmartToast.show(
-  context,
-  message: "This is an info toast.",
-)
-```
+## License
 
-### SmartEmptyState
-
-```dart
-SmartEmptyState(
-  icon: Icons.inbox,
-  title: "No Messages",
-  message: "You don’t have any messages yet.",
-)
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📚 Example App
-
-See the [`example/`](example/) folder for a full demo and showcase of all widgets.
-
----
-
-## 🧑‍💻 Contributing & Maintenance
-
-- All widgets are modular and documented for easy updates.
-- To add new widgets, create a new file in `lib/widgets/` and export it in `smart_ui_layouts.dart`.
-- For bug fixes or improvements, submit a PR or open an issue.
-- Please keep doc comments up-to-date for maintainability.
-
----
-
-## 📄 License
-
-MIT License
-
-Copyright (c) 2025 Ahmar yar Khan
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+© 2025 CodexAhmar. All rights reserved.

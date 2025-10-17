@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_ui/utils/smart_theme.dart';
 
 /// A fully customizable alternate Smart Button.
 class SmartButtonAlt extends StatelessWidget {
@@ -19,8 +18,6 @@ class SmartButtonAlt extends StatelessWidget {
   final double? height;
   final double? width;
 
-  final SmartLevel? level; // Optional for level-based auto color
-
   const SmartButtonAlt({
     super.key,
     required this.label,
@@ -36,27 +33,15 @@ class SmartButtonAlt extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     this.height,
     this.width,
-    this.level,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final brightness = theme.brightness;
 
-    // Auto color logic if level is provided
-    final Color defaultBg =
-        level != null
-            ? SmartTheme.backgroundColor(level!, brightness)
-            : theme.colorScheme.primary;
-
-    final Color defaultFg =
-        level != null
-            ? SmartTheme.textColor(level!, brightness)
-            : theme.colorScheme.onPrimary;
-
-    final Color defaultBorder =
-        level != null ? SmartTheme.iconColor(level!) : defaultBg;
+    final Color defaultBg = theme.colorScheme.primary;
+    final Color defaultFg = theme.colorScheme.onPrimary;
+    final Color defaultBorder = defaultBg;
 
     final Color resolvedBg = backgroundColor ?? defaultBg;
     final Color resolvedFg = textColor ?? defaultFg;
@@ -74,10 +59,9 @@ class SmartButtonAlt extends StatelessWidget {
           width: width,
           padding: padding,
           decoration: BoxDecoration(
-            color:
-                isOutlined
-                    ? theme.colorScheme.surface.withOpacity(0.02)
-                    : resolvedBg,
+            color: isOutlined
+                ? theme.colorScheme.surface.withValues(alpha: 0.02)
+                : resolvedBg,
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
               color: isOutlined ? resolvedBorder : Colors.transparent,

@@ -1,19 +1,18 @@
+import 'package:example/page/smart_showcase_page.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_ui/pages/smart_showcase_page.dart';
 
 void main() {
-  runApp(const SmartDemoApp());
+  runApp(const MyApp());
 }
 
-class SmartDemoApp extends StatelessWidget {
-  const SmartDemoApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smart UI Layouts Demo',
+      title: "Smart UI Kit Example",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: SmartShowcasePage(),
     );

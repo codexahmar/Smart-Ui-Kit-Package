@@ -42,7 +42,8 @@ class SmartAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Color bg = backgroundColor ?? theme.colorScheme.surfaceContainerHighest;
+    final Color bg =
+        backgroundColor ?? theme.colorScheme.surfaceContainerHighest;
     final Color border = borderColor ?? theme.dividerColor;
 
     final radius = isCircular ? size / 2 : borderRadius;
@@ -60,20 +61,19 @@ class SmartAvatar extends StatelessWidget {
         width: size,
         height: size,
         fit: fit,
-        errorBuilder:
-            (_, __, ___) => Container(
-              width: size,
-              height: size,
-              color: bg,
-              alignment: Alignment.center,
-              child:
-                  fallbackIcon ??
-                  Icon(
-                    Icons.person,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
-                    size: size * 0.5,
-                  ),
-            ),
+        errorBuilder: (_, __, ___) => Container(
+          width: size,
+          height: size,
+          color: bg,
+          alignment: Alignment.center,
+          child:
+              fallbackIcon ??
+              Icon(
+                Icons.person,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                size: size * 0.5,
+              ),
+        ),
       ),
     );
 
