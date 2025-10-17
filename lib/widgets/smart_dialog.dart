@@ -4,28 +4,34 @@ class SmartDialog {
   static Future<void> show({
     required BuildContext context,
 
-    // Core
+    // Core Content
     String? title,
+    Widget? titleWidget,
     Widget? content,
+    Widget? customContent,
     Widget? icon,
+
+    // Actions
     VoidCallback? onConfirm,
     VoidCallback? onCancel,
-
-    // Text
     String confirmText = "OK",
     String cancelText = "Cancel",
-
-    // Flags
     bool showCancel = true,
     bool showConfirm = true,
+    Widget? customConfirmButton,
+    Widget? customCancelButton,
+    Widget? customActionsArea,
+
+    // Dialog Behavior
     bool barrierDismissible = true,
     bool scrollable = false,
 
-    // Layouts
+    // Layout
     List<Widget>? actions,
     MainAxisAlignment actionsAlignment = MainAxisAlignment.end,
     EdgeInsetsGeometry? actionsPadding,
     EdgeInsetsGeometry? contentPadding,
+    EdgeInsetsGeometry? titlePadding,
     ShapeBorder? shape,
     double elevation = 6,
 
@@ -36,27 +42,31 @@ class SmartDialog {
     TextStyle? confirmTextStyle,
     TextStyle? cancelTextStyle,
 
-    // Fully custom buttons
-    Widget? customConfirmButton,
-    Widget? customCancelButton,
+    // bg color for default button
+    Color? confirmButtonColor,
+    Color? cancelButtonColor,
   }) {
-    final ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
 
     return showDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (ctx) {
         return AlertDialog(
+          elevation: elevation,
           shape:
               shape ??
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          elevation: elevation,
           backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
           contentPadding:
               contentPadding ??
               const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          titlePadding:
+              titlePadding ??
+              const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 0),
           title:
-              title != null
+              titleWidget ??
+              (title != null
                   ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -69,9 +79,10 @@ class SmartDialog {
                       ),
                     ],
                   )
-                  : null,
+                  : null),
           content:
-              content != null
+              customContent ??
+              (content != null
                   ? DefaultTextStyle(
                     style:
                         contentTextStyle ??
@@ -81,50 +92,64 @@ class SmartDialog {
                             ? SingleChildScrollView(child: content)
                             : content,
                   )
-                  : null,
+                  : null),
           actions:
-              actions ??
-              [
-                if (showCancel)
-                  customCancelButton ??
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                          onCancel?.call();
-                        },
-                        child: Text(
-                          cancelText,
-                          style:
-                              cancelTextStyle ??
-                              theme.textTheme.labelLarge!.copyWith(
-                                color: theme.colorScheme.secondary,
+              customActionsArea != null
+                  ? [customActionsArea]
+                  : actions ??
+                      [
+                        if (showCancel)
+                          customCancelButton ??
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                  onCancel?.call();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: cancelButtonColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Text(
+                                  cancelText,
+                                  style:
+                                      cancelTextStyle ??
+                                      theme.textTheme.labelLarge!.copyWith(
+                                        color:
+                                            cancelButtonColor != null
+                                                ? Colors.white
+                                                : theme.colorScheme.secondary,
+                                      ),
+                                ),
                               ),
-                        ),
-                      ),
-                if (showConfirm)
-                  customConfirmButton ??
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                          onConfirm?.call();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.primary,
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          confirmText,
-                          style:
-                              confirmTextStyle ??
-                              theme.textTheme.labelLarge!.copyWith(
-                                color: Colors.white,
+
+                        if (showConfirm)
+                          customConfirmButton ??
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                  onConfirm?.call();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      confirmButtonColor ??
+                                      theme.colorScheme.primary,
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                child: Text(
+                                  confirmText,
+                                  style:
+                                      confirmTextStyle ??
+                                      theme.textTheme.labelLarge!.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                ),
                               ),
-                        ),
-                      ),
-              ],
+                      ],
           actionsAlignment: actionsAlignment,
           actionsPadding:
               actionsPadding ??
