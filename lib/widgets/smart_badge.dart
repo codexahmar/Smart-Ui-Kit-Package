@@ -54,7 +54,6 @@ class SmartBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final brightness = theme.brightness;
 
     final Color defaultBg =
         color ?? theme.colorScheme.secondary.withOpacity(0.9);
