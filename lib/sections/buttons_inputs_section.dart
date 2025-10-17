@@ -1,5 +1,6 @@
-// lib/sections/buttons_inputs_section.dart
 import 'package:flutter/material.dart';
+import 'package:smart_ui/widgets/smart_animation.dart';
+
 import 'package:smart_ui/widgets/smart_section.dart';
 import 'package:smart_ui/widgets/smart_button.dart';
 import 'package:smart_ui/widgets/smart_input.dart';
@@ -17,8 +18,8 @@ class ButtonsInputsSection extends StatelessWidget {
           label: "Get Started",
           icon: const Icon(Icons.arrow_forward, size: 20, color: Colors.white),
           onPressed: () {},
-          backgroundColor: Colors.teal,
           textColor: Colors.white,
+          backgroundColor: Colors.amber,
           fontSize: 16,
           borderRadius: 20,
         ),
@@ -27,9 +28,6 @@ class ButtonsInputsSection extends StatelessWidget {
           isOutlined: true,
           label: "Cancel",
           onPressed: () {},
-          backgroundColor: Colors.transparent,
-          borderColor: Colors.red,
-          textColor: Colors.red,
           fontSize: 15,
           borderRadius: 16,
         ),
@@ -59,26 +57,32 @@ class ButtonsInputsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        SmartButtonAlt(
-          label: "Subscribe Now",
-          onPressed: () {},
-          backgroundColor: Colors.deepPurpleAccent,
-          textColor: Colors.white,
-          fontSize: 18,
-          borderRadius: 30,
-          elevation: 6,
-          icon: const Icon(Icons.star, size: 20, color: Colors.white),
+
+        SmartAnimation(
+          animationType: AnimationType.slide,
+          delay: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 700),
+          child: SmartButtonAlt(
+            label: "Subscribe Now",
+            onPressed: () {},
+            backgroundColor: Colors.deepPurpleAccent,
+            textColor: Colors.white,
+            fontSize: 18,
+            borderRadius: 30,
+            icon: const Icon(Icons.star, size: 20, color: Colors.white),
+          ),
         ),
+
         const SizedBox(height: 16),
         SmartButtonAlt(
           label: "Edit Profile",
           onPressed: () {},
-          isOutlined: true,
+          textColor: Colors.white,
           borderColor: Colors.blueAccent,
-          textColor: Colors.blueAccent,
+          backgroundColor: Colors.teal,
           fontSize: 16,
           borderRadius: 40,
-          icon: const Icon(Icons.edit, size: 18, color: Colors.blueAccent),
+          icon: const Icon(Icons.edit, size: 18, color: Colors.white),
         ),
         const SizedBox(height: 24),
         SmartInput(

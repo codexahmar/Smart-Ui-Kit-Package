@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 
-/// A fully customizable tappable tile with leading, title, subtitle, and trailing widgets.
+/// A fully customizable tile with leading, title, subtitle, and trailing widgets.
 class SmartTile extends StatelessWidget {
   final Widget? leading;
   final IconData? icon;
   final double iconSize;
+
   final String title;
   final String? subtitle;
+
   final Widget? trailing;
+
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   final Color? backgroundColor;
   final Color? iconColor;
   final Color? textColor;
+  final Color? splashColor;
+  final Color? highlightColor;
+
   final TextStyle? titleStyle;
   final TextStyle? subtitleStyle;
 
   final EdgeInsetsGeometry padding;
-  final BorderRadius? borderRadius;
+  final double spacing;
+  final double trailingSpacing;
+
+  final BorderRadiusGeometry borderRadius;
+
   final BoxBorder? border;
   final double elevation;
   final List<BoxShadow>? boxShadow;
@@ -31,12 +42,17 @@ class SmartTile extends StatelessWidget {
     this.subtitle,
     this.trailing,
     this.onTap,
+    this.onLongPress,
     this.backgroundColor,
     this.iconColor,
     this.textColor,
+    this.splashColor,
+    this.highlightColor,
     this.titleStyle,
     this.subtitleStyle,
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    this.spacing = 12,
+    this.trailingSpacing = 12,
     this.borderRadius = const BorderRadius.all(Radius.circular(12)),
     this.border,
     this.elevation = 0,
@@ -46,14 +62,18 @@ class SmartTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Color bg = backgroundColor ?? theme.cardColor;
-    final Color ic = iconColor ?? theme.colorScheme.primary;
-    final Color tx =
-        textColor ?? theme.textTheme.bodyLarge?.color ?? Colors.black;
+    final isDark = theme.brightness == Brightness.dark;
 
-    final Widget? resolvedLeading =
+    final Color bg = backgroundColor ?? theme.cardColor;
+    final Color iconClr = iconColor ?? theme.colorScheme.primary;
+    final Color defaultTextColor =
+        textColor ??
+        theme.textTheme.bodyLarge?.color ??
+        (isDark ? Colors.white : Colors.black87);
+
+    final resolvedLeading =
         leading ??
-        (icon != null ? Icon(icon, color: ic, size: iconSize) : null);
+        (icon != null ? Icon(icon, color: iconClr, size: iconSize) : null);
 
     return Material(
       color: bg,
@@ -62,7 +82,10 @@ class SmartTile extends StatelessWidget {
       shadowColor: Colors.black12,
       child: InkWell(
         onTap: onTap,
-        borderRadius: borderRadius,
+        onLongPress: onLongPress,
+
+        splashColor: splashColor ?? theme.splashColor,
+        highlightColor: highlightColor ?? theme.highlightColor,
         child: Container(
           padding: padding,
           decoration: BoxDecoration(
@@ -75,7 +98,7 @@ class SmartTile extends StatelessWidget {
             children: [
               if (resolvedLeading != null) ...[
                 resolvedLeading,
-                const SizedBox(width: 12),
+                SizedBox(width: spacing),
               ],
               Expanded(
                 child: Column(
@@ -88,7 +111,7 @@ class SmartTile extends StatelessWidget {
                           TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: tx,
+                            color: defaultTextColor,
                           ),
                     ),
                     if (subtitle != null)
@@ -96,12 +119,18 @@ class SmartTile extends StatelessWidget {
                         subtitle!,
                         style:
                             subtitleStyle ??
-                            TextStyle(fontSize: 13, color: tx.withOpacity(0.7)),
+                            TextStyle(
+                              fontSize: 13,
+                              color: defaultTextColor.withOpacity(0.7),
+                            ),
                       ),
                   ],
                 ),
               ),
-              if (trailing != null) ...[const SizedBox(width: 12), trailing!],
+              if (trailing != null) ...[
+                SizedBox(width: trailingSpacing),
+                trailing!,
+              ],
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-// Updated: lib/utils/smart_theme.dart
 import 'package:flutter/material.dart';
 
 /// Levels for consistent UI feedback.
@@ -9,14 +8,22 @@ class SmartTheme {
     final isDark = brightness == Brightness.dark;
     switch (level) {
       case SmartLevel.success:
-        return isDark ? Colors.green.shade700 : Colors.green.shade100;
+        return isDark
+            ? const Color(0xFF2E7D32) // Dark green
+            : const Color(0xFFE8F5E9); // Light green background
       case SmartLevel.warning:
-        return isDark ? Colors.orange.shade700 : Colors.orange.shade100;
+        return isDark
+            ? const Color(0xFFF57C00) // Orange dark
+            : const Color(0xFFFFF3E0); // Light orange background
       case SmartLevel.error:
-        return isDark ? Colors.red.shade700 : Colors.red.shade100;
+        return isDark
+            ? const Color(0xFFD32F2F) // Dark red
+            : const Color(0xFFFFEBEE); // Light red background
       case SmartLevel.info:
       default:
-        return isDark ? Colors.blueGrey.shade700 : Colors.blue.shade50;
+        return isDark
+            ? const Color(0xFF455A64) // BlueGrey dark
+            : const Color(0xFFE3F2FD); // Light blue background
     }
   }
 
@@ -28,14 +35,14 @@ class SmartTheme {
   static Color iconColor(SmartLevel level) {
     switch (level) {
       case SmartLevel.success:
-        return Colors.green;
+        return const Color(0xFF2E7D32); // Green
       case SmartLevel.warning:
-        return Colors.orange;
+        return const Color(0xFFF57C00); // Orange
       case SmartLevel.error:
-        return Colors.red;
+        return const Color(0xFFD32F2F); // Red
       case SmartLevel.info:
       default:
-        return Colors.blue;
+        return const Color(0xFF1976D2); // Blue
     }
   }
 
