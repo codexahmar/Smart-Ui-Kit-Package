@@ -56,6 +56,7 @@ class CardsSection extends StatelessWidget {
         SmartCard(
           title: "Tasks Remaining",
           level: SmartLevel.warning,
+          iconColor: Colors.orangeAccent,
           variant: SmartCardVariant.compact,
         ),
 
@@ -66,6 +67,7 @@ class CardsSection extends StatelessWidget {
           level: SmartLevel.success,
           variant: SmartCardVariant.media,
           actionText: "View Details",
+          iconColor: Colors.green.shade400,
           onActionPressed: () => print("Details clicked"),
           padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.only(bottom: 20),

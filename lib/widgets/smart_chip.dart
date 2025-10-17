@@ -1,156 +1,112 @@
 import 'package:flutter/material.dart';
 
+/// A fully customizable SmartChip supporting both FilterChip and ChoiceChip behaviors.
 class SmartChip extends StatelessWidget {
-  /// Required label shown on the chip.
   final String label;
-
-  /// Whether the chip is currently selected.
-  final bool selected;
-
-  /// Whether the chip is enabled.
-  final bool isEnabled;
-
-  /// Called when the chip is tapped (fallback if `onSelected` is not provided).
-  final VoidCallback? onTap;
-
-  /// Called when the chip selection changes (primary interaction).
-  final ValueChanged<bool>? onSelected;
-
-  /// Optional delete callback (if shown).
-  final VoidCallback? onDeleted;
-
-  /// Background color of the chip (when not selected).
-  final Color? backgroundColor;
-
-  /// Background color when selected.
-  final Color? selectedColor;
-
-  /// Color when chip is disabled.
-  final Color? disabledColor;
-
-  /// Text color of the label.
-  final Color? textColor;
-
-  /// Custom label style (overrides [textColor] if given).
-  final TextStyle? labelStyle;
-
-  /// Leading avatar/icon inside the chip.
   final Widget? avatar;
-
-  /// Optional delete icon (if `onDeleted` is provided).
-  final Icon? deleteIcon;
-
-  /// Custom internal padding.
-  final EdgeInsetsGeometry? padding;
-
-  /// Optional border.
-  final BorderSide? border;
-
-  /// Elevation for shadow.
+  final bool isSelected;
+  final bool isEnabled;
+  final bool isFilterChip; // true = FilterChip, false = ChoiceChip
+  final ValueChanged<bool>? onSelected;
+  final VoidCallback? onTap;
+  final Color? selectedColor;
+  final Color? disabledColor;
+  final Color? backgroundColor;
+  final Color? selectedTextColor;
+  final Color? textColor;
+  final Color? borderColor;
+  final double borderRadius;
   final double elevation;
-
-  /// Custom shape of the chip.
-  final OutlinedBorder? shape;
-
-  /// Use [FilterChip] if true, else uses [ChoiceChip].
-  final bool useFilterChip;
-
-  /// Optional tooltip.
-  final String? tooltip;
-
-  /// Show checkmark (only applies to [FilterChip]).
-  final bool showCheckmark;
+  final EdgeInsets padding;
+  final TextStyle? textStyle;
 
   const SmartChip({
-    super.key,
+    Key? key,
     required this.label,
-    this.selected = false,
+    this.avatar,
+    this.isSelected = false,
     this.isEnabled = true,
-    this.onTap,
+    this.isFilterChip = true,
     this.onSelected,
-    this.onDeleted,
-    this.backgroundColor,
+    this.onTap,
     this.selectedColor,
     this.disabledColor,
+    this.backgroundColor,
+    this.selectedTextColor,
     this.textColor,
-    this.labelStyle,
-    this.avatar,
-    this.deleteIcon,
-    this.padding,
-    this.border,
-    this.elevation = 0,
-    this.shape,
-    this.useFilterChip = false,
-    this.tooltip,
-    this.showCheckmark = true,
-  });
+    this.borderColor,
+    this.borderRadius = 16.0,
+    this.elevation = 0.0,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+    this.textStyle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Color effectiveTextColor =
-        textColor ?? Theme.of(context).colorScheme.onSurface;
-    final TextStyle effectiveLabelStyle =
-        labelStyle ?? TextStyle(color: effectiveTextColor);
+    final chipLabel = Text(
+      label,
+      style:
+          textStyle ??
+          TextStyle(
+            color:
+                isSelected
+                    ? selectedTextColor ?? Colors.white
+                    : textColor ?? Colors.black,
+          ),
+    );
 
-    final MaterialTapTargetSize targetSize = MaterialTapTargetSize.shrinkWrap;
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(borderRadius),
+      side: BorderSide(color: borderColor ?? Colors.transparent),
+    );
 
-    final chip =
-        useFilterChip
-            ? FilterChip(
-              label: Text(label, style: effectiveLabelStyle),
-              selected: selected,
-              onSelected:
-                  onSelected ??
-                  (value) {
-                    if (value) onTap?.call();
-                  },
-
-              avatar: avatar,
-              deleteIcon: deleteIcon,
-              onDeleted: onDeleted,
-              selectedColor:
-                  selectedColor ?? Theme.of(context).colorScheme.primary,
-              backgroundColor:
-                  backgroundColor ??
-                  Theme.of(context).chipTheme.backgroundColor,
-              disabledColor: disabledColor ?? Colors.grey.shade300,
-              padding:
-                  padding ??
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              shape: shape ?? StadiumBorder(side: border ?? BorderSide.none),
-              elevation: elevation,
-              materialTapTargetSize: targetSize,
-              showCheckmark: showCheckmark,
-            )
-            : ChoiceChip(
-              label: Text(label, style: effectiveLabelStyle),
-              selected: selected,
-              onSelected:
-                  isEnabled
-                      ? (value) {
-                        if (onSelected != null) {
-                          onSelected!(value);
-                        } else if (value) {
-                          onTap?.call();
-                        }
-                      }
-                      : null,
-
-              avatar: avatar,
-              selectedColor:
-                  selectedColor ?? Theme.of(context).colorScheme.primary,
-              backgroundColor:
-                  backgroundColor ??
-                  Theme.of(context).chipTheme.backgroundColor,
-              disabledColor: disabledColor ?? Colors.grey.shade300,
-              padding:
-                  padding ??
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              shape: shape ?? StadiumBorder(side: border ?? BorderSide.none),
-              elevation: elevation,
-              materialTapTargetSize: targetSize,
-            );
-
-    return tooltip != null ? Tooltip(message: tooltip!, child: chip) : chip;
+    if (isFilterChip) {
+      return FilterChip(
+        label: chipLabel,
+        avatar: avatar,
+        selected: isSelected,
+        onSelected:
+            isEnabled
+                ? (value) {
+                  if (onSelected != null) {
+                    onSelected!(value);
+                  } else if (value) {
+                    onTap?.call();
+                  }
+                }
+                : null,
+        backgroundColor: backgroundColor,
+        selectedColor: selectedColor,
+        disabledColor: disabledColor,
+        elevation: elevation,
+        shape: shape,
+        padding: padding,
+        labelStyle: textStyle,
+        checkmarkColor: selectedTextColor,
+      );
+    } else {
+      return ChoiceChip(
+        label: chipLabel,
+        avatar: avatar,
+        selected: isSelected,
+        onSelected:
+            isEnabled
+                ? (value) {
+                  if (onSelected != null) {
+                    onSelected!(value);
+                  } else if (value) {
+                    onTap?.call();
+                  }
+                }
+                : null,
+        backgroundColor: backgroundColor,
+        selectedColor: selectedColor,
+        disabledColor: disabledColor,
+        elevation: elevation,
+        shape: shape,
+        padding: padding,
+        labelStyle: textStyle,
+      );
+    }
   }
 }
