@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:smart_ui/widgets/smart_empty_state.dart';
-import 'package:smart_ui/widgets/smart_section.dart';
 import 'package:smart_ui/smart_ui_layouts.dart'; // for SmartButtonAlt
 
 class SmartEmptyStateSection extends StatelessWidget {

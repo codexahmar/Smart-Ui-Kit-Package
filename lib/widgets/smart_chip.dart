@@ -21,7 +21,7 @@ class SmartChip extends StatelessWidget {
   final TextStyle? textStyle;
 
   const SmartChip({
-    Key? key,
+    super.key,
     required this.label,
     this.avatar,
     this.isSelected = false,
@@ -39,7 +39,7 @@ class SmartChip extends StatelessWidget {
     this.elevation = 0.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

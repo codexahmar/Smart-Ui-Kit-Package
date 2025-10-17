@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_ui/widgets/smart_dialog.dart';
-import 'package:smart_ui/widgets/smart_section.dart';
 import 'package:smart_ui/smart_ui_layouts.dart';
 
 class SmartDialogSection extends StatelessWidget {

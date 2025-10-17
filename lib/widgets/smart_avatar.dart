@@ -42,7 +42,7 @@ class SmartAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Color bg = backgroundColor ?? theme.colorScheme.surfaceVariant;
+    final Color bg = backgroundColor ?? theme.colorScheme.surfaceContainerHighest;
     final Color border = borderColor ?? theme.dividerColor;
 
     final radius = isCircular ? size / 2 : borderRadius;

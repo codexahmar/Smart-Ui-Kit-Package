@@ -1,4 +1,4 @@
-library smart_ui_layouts;
+library;
 
 export 'widgets/smart_card.dart';
 export 'widgets/smart_section.dart';
